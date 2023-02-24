@@ -1,13 +1,20 @@
 import mongoose, { Schema } from 'mongoose';
 
-const UserSchema = new Schema(
+export interface IUser {
+	firstName: string;
+	lastName: string;
+	email: string;
+	password: string;
+}
+
+const UserSchema = new Schema<IUser>(
 	{
-		firstName: { type: String },
-		lastName: { type: String },
-		email: { type: String },
-		password: { type: String },
+		firstName: { type: String, required: true },
+		lastName: { type: String, required: true },
+		email: { type: String, required: true, unique: true },
+		password: { type: String, required: true },
 	},
 	{ timestamps: true }
 );
 
-export default mongoose.model('User', UserSchema);
+export default mongoose.model<IUser>('User', UserSchema);

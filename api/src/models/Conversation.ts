@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { ObjectId, Schema } from 'mongoose';
 
 const ConversationSchema = new Schema(
 	{
