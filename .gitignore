@@ -1,5 +1,8 @@
 node_modules
 
+# config
+.env
+
 # npm
 package-lock.json
 
