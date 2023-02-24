@@ -2,10 +2,13 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 import express, { Application, Request, Response } from 'express';
+import { StatusCodes as SC } from 'http-status-codes';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import { StatusCodes as SC } from 'http-status-codes';
+import * as models from './models';
+
+models.init();
 
 const app: Application = express();
 
@@ -22,8 +25,9 @@ app.get('/', (req: Request, res: Response) => {
 	return res.status(SC.OK).json({ info: 'Ping Messaging API' });
 });
 
+const BASE_URL = process.env.BASE_URL || 'http://localhost';
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-	console.info('Server listening on:', `${process.env.BASE_URL}:${PORT}`);
+	console.info('Server listening on:', `${BASE_URL}:${PORT}`);
 });
