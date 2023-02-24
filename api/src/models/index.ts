@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import User from './User';
+import Conversation from './Conversation';
+import Message from './Message';
 
 const init = () => {
 	mongoose.set('strictQuery', false);
@@ -9,4 +11,4 @@ const init = () => {
 	});
 };
 
-export { init, User };
+export { init, User, Conversation, Message };

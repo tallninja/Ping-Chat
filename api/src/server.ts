@@ -7,8 +7,9 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import * as models from './models';
+import apiRoutes from './routes';
 
-models.init();
+models.init(); // connect to database
 
 const app: Application = express();
 
@@ -18,12 +19,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(
-	process.env.NODE_ENV === 'production' ? morgan('common') : morgan('dev')
+	process.env.NODE_ENV === 'production' ? morgan('common') : morgan('dev') // logging
 );
 
 app.get('/', (req: Request, res: Response) => {
 	return res.status(SC.OK).json({ info: 'Ping Messaging API' });
 });
+
+app.use('/api', apiRoutes);
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost';
 const PORT = process.env.PORT || 5000;
