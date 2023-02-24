@@ -1,0 +1,11 @@
+node_modules
+
+# npm
+package-lock.json
+
+# yarn
+yarn-lock.json
+
+# pnpm
+pnpm-lock.yaml
+.pnpm-debug.log
