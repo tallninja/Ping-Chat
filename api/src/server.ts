@@ -6,6 +6,7 @@ import { StatusCodes as SC } from 'http-status-codes';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import session from 'express-session';
 import * as models from './models';
 import apiRoutes from './routes';
 
@@ -17,9 +18,29 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(
 	process.env.NODE_ENV === 'production' ? morgan('common') : morgan('dev') // logging
+);
+
+/*
+ * Fixes this error:
+ * Property 'user' does not exist on type 'Session & Partial<SessionData>'.ts(2339)
+ */
+declare module 'express-session' {
+	export interface SessionData {
+		user: { _id: string };
+	}
+}
+
+app.use(
+	session({
+		secret: process.env.SESSION_SECRET as string,
+		resave: false,
+		saveUninitialized: false,
+		cookie: {
+			maxAge: 1 * 24 * 60 * 60 * 1000,
+		},
+	})
 );
 
 app.get('/', (req: Request, res: Response) => {

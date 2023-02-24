@@ -1,8 +1,8 @@
 import mongoose, { ObjectId, Schema } from 'mongoose';
 
 export interface IMessage {
-	conversation: ObjectId;
-	sender: ObjectId;
+	conversation: String;
+	sender: String;
 	text: string;
 }
 

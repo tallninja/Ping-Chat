@@ -5,6 +5,7 @@ import { Conversation, Message } from '../models';
 export const createMessage = async (req: Request, res: Response) => {
 	try {
 		const message = new Message(req.body);
+		message.sender = req!.session!.user!._id;
 		const conversation = await Conversation.findById(req.body.conversation);
 		if (!conversation)
 			return res
@@ -36,7 +37,7 @@ export const getConversationMessages = async (req: Request, res: Response) => {
 	try {
 		const messages = await Message.find({
 			conversation: req.params.conversationId,
-		}).sort({ createdAt: -1 });
+		}).sort({ createdAt: 1 });
 		return res.status(SC.OK).json(messages);
 	} catch (error) {
 		console.error(error);
