@@ -7,6 +7,31 @@ GET {{BASE_URL}}
 GET {{BASE_URL}}/api
 
 ###
+GET {{BASE_URL}}/api/users
+
+###
+POST {{BASE_URL}}/api/users
+Content-Type: application/json
+
+{
+    "firstName": "Ernest",
+    "lastName": "Wambua",
+    "email": "ernestwambua2@gmail.com",
+    "password": "password123"
+}
+
+###
+GET {{BASE_URL}}/api/users/63f89a2c2f99ab79a91c3954
+
+###
+PATCH {{BASE_URL}}/api/users/63f89a2c2f99ab79a91c3954
+Content-Type: application/json
+
+{
+    "lastName": "Mutisya"
+}
+
+###
 POST {{BASE_URL}}/api/auth/signup
 Content-Type: application/json
 
@@ -16,3 +41,17 @@ Content-Type: application/json
     "email": "ernestwambua2@gmail.com",
     "password": "password123"
 }
+
+###
+GET {{BASE_URL}}/api/conversations
+
+###
+POST {{BASE_URL}}/api/conversations
+Content-Type: application/json
+
+{
+    "participants": ["63f87239f8cfdf2edf64de3d", "63f8725717aaa1594c21b110"]
+}
+
+###
+GET {{BASE_URL}}/api/conversations/63f87239f8cfdf2edf64de3d
