@@ -2,7 +2,8 @@ import mongoose, { Schema } from 'mongoose';
 
 const MessageSchema = new Schema(
 	{
-		sender: { type: mongoose.Types.ObjectId, ref: 'User' },
+		conversation: { type: mongoose.Schema.Types.ObjectId, ref: 'Message' },
+		sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 		text: { type: String },
 	},
 	{ timestamps: true }

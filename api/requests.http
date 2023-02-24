@@ -55,3 +55,19 @@ Content-Type: application/json
 
 ###
 GET {{BASE_URL}}/api/conversations/63f87239f8cfdf2edf64de3d
+
+###
+GET {{BASE_URL}}/api/messages
+
+###
+GET {{BASE_URL}}/api/messages/63f89d522f99ab79a91c395f
+
+###
+POST {{BASE_URL}}/api/messages
+Content-Type: application/json
+
+{
+    "conversation": "63f89d522f99ab79a91c395f",
+    "sender": "63f87239f8cfdf2edf64de3d",
+    "text": "Hello friend"
+}
