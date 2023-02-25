@@ -4,17 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ts-node index.ts"
+    "start": "npx ts-node-dev index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/node": "^18.14.1",
+    "nodemon": "^2.0.20",
     "socketio": "^1.0.0",
     "typescript": "^4.9.5"
   },
   "devDependencies": {
+    "socket.io": "^4.6.1",
     "ts-node": "^10.9.1"
   }
 }

@@ -1,4 +1,5 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { Socket } from 'socket.io-client';
+import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { ChatBubble } from './ChatBubble';
 import { MessagePrompt } from './MessagePrompt';
 import { useConvoContext } from '../hooks/useConvoContext';
@@ -13,8 +14,13 @@ interface Message {
 	createdAt: string;
 }
 
-export const ChatWindow = () => {
+interface ChatWindowProps {
+	socket: Socket | null;
+}
+
+export const ChatWindow: FC<ChatWindowProps> = ({ socket }) => {
 	const [messages, setMessages] = useState<Message[]>([]);
+	const [arrMessage, setArrMessage] = useState<any>(null);
 	const [participant, setParticipant] = useState({});
 	const scrollRef = useRef<HTMLDivElement>(null);
 	const { auth } = useAuthContext();
@@ -54,6 +60,22 @@ export const ChatWindow = () => {
 		scrollRef?.current?.scrollIntoView({ behavior: 'smooth' });
 	}, [messages]);
 
+	useEffect(() => {
+		socket?.on('getMessage', (data) => {
+			console.log(data);
+			setArrMessage({
+				sender: data.senderId,
+				text: data.text,
+			});
+		});
+	}, [socket]);
+
+	useEffect(() => {
+		arrMessage &&
+			conversation.participants.includes(arrMessage.sender) &&
+			setMessages((prev) => [...prev, arrMessage]);
+	}, [arrMessage, conversation]);
+
 	return (
 		<div className='flex flex-col flex-auto h-full p-6'>
 			<div className='flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4'>
@@ -84,7 +106,11 @@ export const ChatWindow = () => {
 						)}
 					</div>
 				</div>
-				<MessagePrompt messages={messages} setMessages={setMessages} />
+				<MessagePrompt
+					socket={socket}
+					messages={messages}
+					setMessages={setMessages}
+				/>
 			</div>
 		</div>
 	);

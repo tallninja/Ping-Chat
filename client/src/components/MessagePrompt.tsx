@@ -1,25 +1,40 @@
+import { Socket } from 'socket.io-client';
 import { ChangeEvent, FC, useState } from 'react';
 import { useApi } from '../hooks/useApi';
 import { useConvoContext } from '../hooks/useConvoContext';
+import { useAuthContext } from '../hooks';
 
 interface MessagePromptProps {
+	socket: Socket | null;
 	messages: any[];
 	setMessages: Function;
 }
 
 export const MessagePrompt: FC<MessagePromptProps> = ({
+	socket,
 	messages,
 	setMessages,
 }) => {
 	const [message, setMessage] = useState('');
 	const api = useApi();
 	const { conversation } = useConvoContext();
+	const { auth } = useAuthContext();
 
 	const onChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setMessage(e.target.value);
 	};
 
 	const sendMessage = async () => {
+		const receiver = conversation?.participants?.find(
+			(par) => par !== auth._id
+		);
+
+		socket?.emit('sendMessage', {
+			senderId: auth._id,
+			receiverId: receiver,
+			text: message,
+		});
+
 		try {
 			const res = await api.post('/messages', {
 				conversation: conversation._id,
