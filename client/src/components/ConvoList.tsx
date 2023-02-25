@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import { Convo } from './Convo';
 import { useApi } from '../hooks/useApi';
 import { useAuthContext } from '../hooks';
+import { useConvoContext } from '../hooks/useConvoContext';
 
 export const ConvoList = () => {
 	const [conversations, setConversations] = useState<any[]>([]);
 	const api = useApi();
 	const { auth } = useAuthContext();
+	const { conversation } = useConvoContext();
 
 	useEffect(() => {
 		const fetchUserConversations = async () => {
@@ -19,7 +21,7 @@ export const ConvoList = () => {
 		};
 		fetchUserConversations();
 		return;
-	}, []);
+	}, [conversation]);
 
 	return (
 		<>

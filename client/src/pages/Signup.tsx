@@ -30,7 +30,7 @@ export const Signup = () => {
 	return (
 		<div className='w-screen h-screen bg-[#f0f2f5] flex items-center justify-center'>
 			<div className='flex w-[70%] h-[70%]'>
-				<div className='flex flex-1 flex-col justify-center'>
+				<div className='flex flex-1 flex-col justify-center px-4'>
 					<div className='flex items-center'>
 						<div className='flex items-center justify-center rounded-2xl text-indigo-700 bg-indigo-100 h-[50px] w-[50px] mr-4'>
 							<svg

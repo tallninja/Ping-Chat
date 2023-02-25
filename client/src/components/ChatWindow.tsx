@@ -5,6 +5,7 @@ import { MessagePrompt } from './MessagePrompt';
 import { useConvoContext } from '../hooks/useConvoContext';
 import { useApi } from '../hooks/useApi';
 import { useAuthContext } from '../hooks';
+import { useSocketContext } from '../hooks/useSocketContext';
 
 interface Message {
 	_id: string;
@@ -14,17 +15,14 @@ interface Message {
 	createdAt: string;
 }
 
-interface ChatWindowProps {
-	socket: Socket | null;
-}
-
-export const ChatWindow: FC<ChatWindowProps> = ({ socket }) => {
+export const ChatWindow = () => {
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [arrMessage, setArrMessage] = useState<any>(null);
 	const [participant, setParticipant] = useState({});
 	const scrollRef = useRef<HTMLDivElement>(null);
 	const { auth } = useAuthContext();
 	const { conversation, setConversation } = useConvoContext();
+	const socket = useSocketContext();
 	const api = useApi();
 
 	useEffect(() => {
@@ -61,6 +59,7 @@ export const ChatWindow: FC<ChatWindowProps> = ({ socket }) => {
 	}, [messages]);
 
 	useEffect(() => {
+		// console.log(socket);
 		socket?.on('getMessage', (data) => {
 			console.log(data);
 			setArrMessage({
@@ -106,11 +105,7 @@ export const ChatWindow: FC<ChatWindowProps> = ({ socket }) => {
 						)}
 					</div>
 				</div>
-				<MessagePrompt
-					socket={socket}
-					messages={messages}
-					setMessages={setMessages}
-				/>
+				<MessagePrompt messages={messages} setMessages={setMessages} />
 			</div>
 		</div>
 	);

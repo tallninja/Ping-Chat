@@ -3,21 +3,21 @@ import { ChangeEvent, FC, useState } from 'react';
 import { useApi } from '../hooks/useApi';
 import { useConvoContext } from '../hooks/useConvoContext';
 import { useAuthContext } from '../hooks';
+import { useSocketContext } from '../hooks/useSocketContext';
 
 interface MessagePromptProps {
-	socket: Socket | null;
 	messages: any[];
 	setMessages: Function;
 }
 
 export const MessagePrompt: FC<MessagePromptProps> = ({
-	socket,
 	messages,
 	setMessages,
 }) => {
 	const [message, setMessage] = useState('');
 	const api = useApi();
 	const { conversation } = useConvoContext();
+	const socket = useSocketContext();
 	const { auth } = useAuthContext();
 
 	const onChange = (e: ChangeEvent<HTMLInputElement>) => {
