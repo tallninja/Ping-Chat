@@ -12,10 +12,11 @@ export const Convo: FC<ConvoProps> = ({ _id, participants }) => {
 	const [user, setUser] = useState<any>({});
 	const api = useApi();
 	const { auth } = useAuthContext();
-	const { setConversation } = useConvoContext();
+	const { conversation, setConversation } = useConvoContext();
+
+	const participant = participants.find((par) => par !== auth._id);
 
 	useEffect(() => {
-		const participant = participants.find((par) => par !== auth._id);
 		const fetchUser = async () => {
 			try {
 				const res = await api.get(`/users/${participant}`);
@@ -28,9 +29,15 @@ export const Convo: FC<ConvoProps> = ({ _id, participants }) => {
 		return;
 	}, []);
 
+	const isActive = conversation?.participants?.some(
+		(par) => par === participant
+	);
+
 	return (
 		<button
-			className={`flex flex-row items-center hover:bg-gray-100 rounded-xl p-2`}
+			className={`flex flex-row items-center ${
+				isActive ? 'bg-gray-100' : ''
+			} hover:bg-gray-100 rounded-xl p-2`}
 			onClick={() => setConversation!({ _id, participants })}
 		>
 			<div className='h-8 w-8 rounded-full border overflow-hidden'>

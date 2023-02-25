@@ -5,12 +5,13 @@ import { Conversation } from '../models';
 export const createConversation = async (req: Request, res: Response) => {
 	try {
 		const conversation = new Conversation(req.body);
+		const [p1, p2] = req.body.participants;
 		const existingConversation = await Conversation.findOne({
 			participants: {
 				$all: req.body.participants,
 			},
 		});
-		if (existingConversation)
+		if (existingConversation && p1 === p2)
 			return res
 				.status(SC.BAD_REQUEST)
 				.json({ error: 'Conversation already exists' });
