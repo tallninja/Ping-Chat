@@ -5,6 +5,7 @@ export interface IUser {
 	lastName: string;
 	email: string;
 	password: string;
+	avatar: string;
 }
 
 const UserSchema = new Schema<IUser>(
@@ -13,6 +14,7 @@ const UserSchema = new Schema<IUser>(
 		lastName: { type: String, required: true },
 		email: { type: String, required: true, unique: true },
 		password: { type: String, required: true },
+		avatar: { type: String, default: 'https://robohash.org/pingchat' },
 	},
 	{ timestamps: true }
 );

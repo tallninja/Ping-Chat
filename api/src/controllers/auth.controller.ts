@@ -16,7 +16,9 @@ export const signup = async (req: Request, res: Response) => {
 
 		const salt = randomBytes(16).toString('hex');
 		const hash = (await scrypt(user.password, salt, 32)) as Buffer;
+
 		user.password = `${salt}.${hash.toString('hex')}`;
+		user.avatar = `https://robohash.org/${salt}`;
 
 		const newUser = await user.save();
 		return res.status(SC.OK).json(newUser);
@@ -40,7 +42,23 @@ export const login = async (req: Request, res: Response) => {
 			return res
 				.status(SC.UNAUTHORIZED)
 				.json({ error: 'Invalid email or password' });
-		req.session.user = { _id: user._id.toString() };
+		req.session.user = {
+			_id: user._id.toString(),
+			firstName: user.firstName,
+			lastName: user.lastName,
+			email: user.email,
+			avatar: user.avatar,
+		};
+		return res.status(SC.OK).json(user);
+	} catch (error) {
+		console.error(error);
+		return res.status(SC.INTERNAL_SERVER_ERROR).json({ error });
+	}
+};
+
+export const profile = async (req: Request, res: Response) => {
+	try {
+		const user = await User.findById(req.session.user?._id);
 		return res.status(SC.OK).json(user);
 	} catch (error) {
 		console.error(error);

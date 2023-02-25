@@ -3,7 +3,7 @@ dotenv.config();
 
 import express, { Application, Request, Response } from 'express';
 import { StatusCodes as SC } from 'http-status-codes';
-import cors from 'cors';
+import cors, { CorsOptions } from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import session from 'express-session';
@@ -14,7 +14,24 @@ models.init(); // connect to database
 
 const app: Application = express();
 
-app.use(cors());
+const whitelist = ['http://localhost:3000', 'http://localhost:5173'];
+
+app.use(
+	cors({
+		origin: (
+			origin: string,
+			callback: (err: Error | null, origin?: boolean) => void
+		) => {
+			if (whitelist.indexOf(origin) !== -1 || !origin) {
+				callback(null, true);
+			} else {
+				callback(new Error('Not allowed by CORS'));
+			}
+		},
+		credentials: true,
+		optionsSuccessStatus: 200,
+	} as CorsOptions)
+);
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -28,7 +45,13 @@ app.use(
  */
 declare module 'express-session' {
 	export interface SessionData {
-		user: { _id: string };
+		user: {
+			_id: string;
+			firstName: string;
+			lastName: string;
+			email: string;
+			avatar: string;
+		};
 	}
 }
 

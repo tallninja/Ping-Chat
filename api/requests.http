@@ -38,7 +38,7 @@ Content-Type: application/json
 {
     "firstName": "Ernest",
     "lastName": "Wambua",
-    "email": "ernestwambua4@gmail.com",
+    "email": "ernestwambua2@gmail.com",
     "password": "password123"
 }
 
@@ -47,9 +47,12 @@ POST {{BASE_URL}}/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "ernestwambua3@gmail.com",
+    "email": "ernestwambua2@gmail.com",
     "password": "password123"
 }
+
+###
+POST {{BASE_URL}}/api/auth/logout
 
 ###
 GET {{BASE_URL}}/api/conversations
@@ -59,11 +62,11 @@ POST {{BASE_URL}}/api/conversations
 Content-Type: application/json
 
 {
-    "participants": ["63f8df404dc48f17914a9fd3", "63f8e318e4c5ad2eb474c92b"]
+    "participants": ["63f9f6d1de9c8f001c03f345", "63f9ef10e486421493ae6bb7"]
 }
 
 ###
-GET {{BASE_URL}}/api/conversations/63f8e318e4c5ad2eb474c92b
+GET {{BASE_URL}}/api/conversations/63f9ef10e486421493ae6bb7
 
 ###
 GET {{BASE_URL}}/api/messages
