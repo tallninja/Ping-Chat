@@ -5,6 +5,15 @@ import { Conversation } from '../models';
 export const createConversation = async (req: Request, res: Response) => {
 	try {
 		const conversation = new Conversation(req.body);
+		const existingConversation = await Conversation.findOne({
+			participants: {
+				$all: req.body.participants,
+			},
+		});
+		if (existingConversation)
+			return res
+				.status(SC.BAD_REQUEST)
+				.json({ error: 'Conversation already exists' });
 		const newConversation = await conversation.save();
 		return res.status(SC.OK).json(newConversation);
 	} catch (error) {

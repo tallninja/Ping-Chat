@@ -32,7 +32,7 @@ export const ChatBubble: FC<ChatBubbleProps> = ({
 					userIsSender ? 'flex-row-reverse' : 'flex-row'
 				}`}
 			>
-				<div className='h-8 w-8 rounded-full border overflow-hidden'>
+				<div className='flex items-center justify-center h-10 w-10 rounded-full border overflow-hidden flex-shrink-0'>
 					<img
 						src={userIsSender ? auth.avatar : participant.avatar}
 						alt='img'
