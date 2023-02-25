@@ -1,11 +1,19 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import { useApi } from '../hooks/useApi';
 import { useConvoContext } from '../hooks/useConvoContext';
 
-export const MessagePrompt = () => {
+interface MessagePromptProps {
+	messages: any[];
+	setMessages: Function;
+}
+
+export const MessagePrompt: FC<MessagePromptProps> = ({
+	messages,
+	setMessages,
+}) => {
 	const [message, setMessage] = useState('');
 	const api = useApi();
-	const { conversation, setConversation } = useConvoContext();
+	const { conversation } = useConvoContext();
 
 	const onChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setMessage(e.target.value);
@@ -13,11 +21,12 @@ export const MessagePrompt = () => {
 
 	const sendMessage = async () => {
 		try {
-			await api.post('/messages', {
+			const res = await api.post('/messages', {
 				conversation: conversation._id,
 				text: message,
 			});
 			setMessage('');
+			setMessages([...messages, res.data]);
 		} catch (error) {
 			console.error(error);
 		}

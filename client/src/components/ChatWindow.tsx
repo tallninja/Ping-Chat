@@ -18,7 +18,7 @@ export const ChatWindow = () => {
 	const [participant, setParticipant] = useState({});
 	const scrollRef = useRef<HTMLDivElement>(null);
 	const { auth } = useAuthContext();
-	const { conversation } = useConvoContext();
+	const { conversation, setConversation } = useConvoContext();
 	const api = useApi();
 
 	useEffect(() => {
@@ -43,10 +43,12 @@ export const ChatWindow = () => {
 			}
 		};
 
-		if (conversation._id) fetchParticipant();
-		fetchMessages();
+		if (conversation._id) {
+			fetchParticipant();
+			fetchMessages();
+		}
 		return;
-	}, [conversation, messages]);
+	}, [conversation]);
 
 	useEffect(() => {
 		scrollRef?.current?.scrollIntoView({ behavior: 'smooth' });
@@ -82,7 +84,7 @@ export const ChatWindow = () => {
 						)}
 					</div>
 				</div>
-				<MessagePrompt />
+				<MessagePrompt messages={messages} setMessages={setMessages} />
 			</div>
 		</div>
 	);
