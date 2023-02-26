@@ -1,5 +1,7 @@
 # PingChat
 
+A realtime chat application
+
 ![home](./images/Screenshot%20from%202023-02-26%2000-37-43.png)
 
 ![login](./images/Screenshot%20from%202023-02-26%2011-45-19.png)
@@ -25,6 +27,7 @@
       - [yarn](#yarn-2)
       - [pnpm](#pnpm-2)
     - [Folder structure](#folder-structure)
+    - [Conclusion](#conclusion)
 
 
 ## Description
@@ -258,3 +261,9 @@ npm start
     ├── pnpm-lock.yaml
     └── tsconfig.json
 ```
+
+### Conclusion
+
+I really enjoyed creating this. I learned a lot in the process. It is far from perfect but I will continue to make it better.
+
+Enjoy :)
