@@ -1,6 +1,12 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
 import { Server } from 'socket.io';
 
-const io = new Server();
+const io = new Server({
+	cors: {
+		origin: process.env.CLIENT_URL,
+	},
+});
 
 let users: any[] = [];
 
