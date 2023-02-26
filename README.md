@@ -10,7 +10,7 @@
 - [PingChat](#pingchat)
   - [Table Of Contents](#table-of-contents)
   - [Description](#description)
-    - [Language(s) Used](#languages-used)
+    - [Stack Used](#stack-used)
   - [Running the application](#running-the-application)
     - [Backend API](#backend-api)
       - [npm](#npm)
@@ -31,7 +31,7 @@
 
 PingChat is a Realtime chat application where users can talk to strangers anonymously from anywhere in the world. PingChat was created by [Ernest Wambua](http://github.com/tallninja) using the popular MERN stack.
 
-### Language(s) Used
+### Stack Used
 
 - [Typescript](https://www.typescriptlang.org/)
 - [MongoDB](https://mongodb.com)
