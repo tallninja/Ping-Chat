@@ -27,7 +27,7 @@ A realtime chat application
       - [yarn](#yarn-2)
       - [pnpm](#pnpm-2)
     - [Folder structure](#folder-structure)
-    - [Conclusion](#conclusion)
+  - [Conclusion](#conclusion)
 
 
 ## Description
@@ -262,7 +262,7 @@ npm start
     └── tsconfig.json
 ```
 
-### Conclusion
+## Conclusion
 
 I really enjoyed creating this. I learned a lot in the process. It is far from perfect but I will continue to make it better.
 
