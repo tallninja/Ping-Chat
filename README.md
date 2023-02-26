@@ -38,6 +38,7 @@ PingChat is a Realtime chat application where users can talk to strangers anonym
 - [React](https://reactjs.org/) with ([Typescript](https://www.typescriptlang.org/)) and [Vite](https://vitejs.dev/)
 - [Tailwindcss](https://tailwindcss.com/)
 - [Express JS](http://expressjs.com/)
+- [Socket.IO](https://socket.io/)
 - [NodeJS](https://nodejs.org)
 
 ## Running the application
