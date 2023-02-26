@@ -1,4 +1,3 @@
-import { Socket } from 'socket.io-client';
 import { ChangeEvent, FC, useState } from 'react';
 import { useApi } from '../hooks/useApi';
 import { useConvoContext } from '../hooks/useConvoContext';
@@ -20,15 +19,14 @@ export const MessagePrompt: FC<MessagePromptProps> = ({
 	const socket = useSocketContext();
 	const { auth } = useAuthContext();
 
+	const receiver = conversation?.participants?.find((par) => par !== auth._id);
+
 	const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+		// socket?.emit('typing', { senderId: auth._id, receiverId: receiver });
 		setMessage(e.target.value);
 	};
 
 	const sendMessage = async () => {
-		const receiver = conversation?.participants?.find(
-			(par) => par !== auth._id
-		);
-
 		socket?.emit('sendMessage', {
 			senderId: auth._id,
 			receiverId: receiver,

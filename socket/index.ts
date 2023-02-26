@@ -25,6 +25,11 @@ io.on('connection', (socket) => {
 		io.emit('getUsers', users);
 	});
 
+	// socket.on('typing', ({ senderId, receiverId }) => {
+	// 	const receiver = getUser(receiverId);
+	// 	receiver?.socketId && io.to(receiver.socketId).emit('typing', { senderId });
+	// });
+
 	socket.on('sendMessage', ({ senderId, receiverId, text }) => {
 		const receiver = getUser(receiverId);
 		receiver?.socketId &&

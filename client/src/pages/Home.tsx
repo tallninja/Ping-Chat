@@ -8,10 +8,9 @@ export const Home = () => {
 	const socket = useSocketContext();
 
 	useEffect(() => {
-		console.log(socket);
 		socket?.emit('addUser', auth._id);
 		socket?.on('getUsers', (users) => {
-			console.log(users);
+			return;
 		});
 	}, [auth, socket]);
 

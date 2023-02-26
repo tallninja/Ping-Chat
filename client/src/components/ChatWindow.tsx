@@ -1,5 +1,4 @@
-import { Socket } from 'socket.io-client';
-import { FC, useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ChatBubble } from './ChatBubble';
 import { MessagePrompt } from './MessagePrompt';
 import { useConvoContext } from '../hooks/useConvoContext';
@@ -18,10 +17,10 @@ interface Message {
 export const ChatWindow = () => {
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [arrMessage, setArrMessage] = useState<any>(null);
-	const [participant, setParticipant] = useState({});
+	const [participant, setParticipant] = useState<any>({});
 	const scrollRef = useRef<HTMLDivElement>(null);
 	const { auth } = useAuthContext();
-	const { conversation, setConversation } = useConvoContext();
+	const { conversation } = useConvoContext();
 	const socket = useSocketContext();
 	const api = useApi();
 
@@ -81,9 +80,10 @@ export const ChatWindow = () => {
 				<div className='flex flex-col h-full overflow-x-auto mb-4'>
 					<div className='flex flex-col h-full'>
 						{conversation?._id ? (
-							<div className='grid grid-cols-12 gap-y-2'>
-								{messages.length
-									? messages.map((message, idx) => {
+							<>
+								{messages.length ? (
+									<div className='grid grid-cols-12 gap-y-2'>
+										{messages.map((message, idx) => {
 											return (
 												<ChatBubble
 													key={idx}
@@ -92,10 +92,16 @@ export const ChatWindow = () => {
 													participant={participant}
 												/>
 											);
-									  })
-									: null}
-								{/* <div ref={scrollRef}></div> */}
-							</div>
+										})}
+									</div>
+								) : (
+									<div className='w-full h-full flex items-center justify-center'>
+										<span className='text-2xl text-gray-500'>
+											{`Start chatting with ${participant.firstName} ${participant.lastName}`}
+										</span>
+									</div>
+								)}
+							</>
 						) : (
 							<div className='w-full h-full flex items-center justify-center'>
 								<span className='text-2xl text-gray-500'>
@@ -105,7 +111,9 @@ export const ChatWindow = () => {
 						)}
 					</div>
 				</div>
-				<MessagePrompt messages={messages} setMessages={setMessages} />
+				{conversation?._id ? (
+					<MessagePrompt messages={messages} setMessages={setMessages} />
+				) : null}
 			</div>
 		</div>
 	);
