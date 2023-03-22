@@ -9,9 +9,7 @@ export const Home = () => {
 
 	useEffect(() => {
 		socket?.emit('addUser', auth._id);
-		socket?.on('getUsers', (users) => {
-			return;
-		});
+		socket?.on('getUsers', (users) => users);
 	}, [auth, socket]);
 
 	return (

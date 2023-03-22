@@ -4,7 +4,7 @@ import { Server } from 'socket.io';
 
 const io = new Server({
 	cors: {
-		origin: process.env.CLIENT_URL,
+		origin: process.env.CLIENT_URL || 'http://localhost:5173',
 	},
 });
 

@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+
+  api:
+    build: ./api
+    ports:
+      - 5000:5000
+    restart: unless-stopped
+    volumes:
+      - /app/node_modules
+      - ./api:/app
+
+  client:
+    build: ./client
+    ports:
+      - 5173:5173
+    restart: unless-stopped
+    depends_on:
+      - api
+      - ws
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+
+  ws:
+    build: ./socket
+    ports:
+      - 5005:5005
+    restart: unless-stopped
+    depends_on:
+      - api
+    volumes:
+      - /app/node_modules
+      - ./socket:/app

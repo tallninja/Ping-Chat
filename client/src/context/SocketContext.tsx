@@ -18,9 +18,14 @@ export const SocketProvider: FC<SocketProviderProps> = ({ children }) => {
 	const [socket, setSocket] = useState<Socket | null>(null);
 	const flag = useRef(false);
 
+	const WS_HOST = import.meta.env.VITE_WS_HOST || 'localhost';
+	const WS_PORT = import.meta.env.VITE_WS_PORT || 5005;
+
 	useEffect(() => {
 		if (flag.current)
-			setSocket(io('ws://localhost:5005', { transports: ['websocket'] }));
+			setSocket(
+				io(`ws://${WS_HOST}:${WS_PORT}`, { transports: ['websocket'] })
+			);
 		return () => {
 			flag.current = true;
 		};

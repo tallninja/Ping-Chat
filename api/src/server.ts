@@ -14,7 +14,11 @@ models.init(); // connect to database
 
 const app: Application = express();
 
-const whitelist = ['http://localhost:3000', 'http://localhost:5173'];
+const whitelist = [
+	'http://localhost:3000',
+	'http://localhost:5173',
+	'http://client:5173',
+];
 
 app.use(
 	cors({
