@@ -73,7 +73,7 @@ export const MessagePrompt: FC<MessagePromptProps> = ({
 						value={message}
 						onChange={onChange}
 						onKeyDown={(e) => {
-							if (e.key === 'Enter') sendMessage();
+							if (message.length && e.key === 'Enter') sendMessage();
 						}}
 					/>
 					<button className='absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600'>
@@ -96,7 +96,8 @@ export const MessagePrompt: FC<MessagePromptProps> = ({
 			</div>
 			<div className='ml-4'>
 				<button
-					className='flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0'
+					disabled={!message.length}
+					className='flex items-center justify-center bg-indigo-500 enabled:hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0 disabled:opacity-75'
 					onClick={sendMessage}
 				>
 					<span>Send</span>
